@@ -7,6 +7,7 @@ const config = require('./settings.json');
 const express = require('express');
 const http = require('http');
 const https = require('https');
+const net = require("net");
 
 // ============================================================
 // EXPRESS SERVER - Keep Render/Aternos alive
@@ -453,6 +454,23 @@ function createBot() {
     // FIX: use version:false to auto-detect server version so the bot can join any server.
     // If the user explicitly sets a version in settings.json it is still respected.
     const botVersion = config.server.version && config.server.version.trim() !== '' ? config.server.version : false;
+    console.log("dns + socket test...");
+
+    const socket = net.createConnection(
+      {
+        host: config.server.ip,
+        port: config.server.port,
+      },
+      () => {
+        console.log("RAW TCP SUCCESS");
+        socket.destroy();
+      }
+    );
+    
+    socket.on("error", (err) => {
+      console.log("RAW TCP ERROR:", err);
+    });
+
     bot = mineflayer.createBot({
       username: config['bot-account'].username,
       password: config['bot-account'].password || undefined,
