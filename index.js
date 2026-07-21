@@ -464,6 +464,24 @@ function createBot() {
       checkTimeoutInterval: 600000
     });
 
+      // DEBUG EVENTS
+  bot._client.on('connect', () => {
+    console.log('=== TCP CONNECTED ===');
+  });
+
+  bot._client.on('error', (err) => {
+    console.log('=== CLIENT ERROR ===');
+    console.log(err);
+  });
+
+  bot._client.on('end', () => {
+    console.log('=== CLIENT END ===');
+  });
+
+  bot._client.on('disconnect', (reason) => {
+    console.log('=== CLIENT DISCONNECT ===', reason);
+  });
+
     bot.loadPlugin(pathfinder);
 
     // FIX: connection timeout - end the old bot before reconnecting to avoid ghost bots
