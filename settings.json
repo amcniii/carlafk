@@ -6,7 +6,7 @@
     "type": "offline"
   },
   "server": {
-    "ip": "TheIronvale.aternos.me:55286",
+    "ip": "TheIronvale.aternos.me",
     "port": 55286,
     "version": "",
     "try-creative": false
